@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "start": "PORT=3001 nodemon ./bin/www",
-    "test": "npx jest --watch"
+    "test": "npx jest"
   },
   "dependencies": {
     "body-parser": "^1.19.0",
