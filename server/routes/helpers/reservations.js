@@ -15,7 +15,7 @@ function parseTextMessage(message) {
   // i think the easiest simple way to parse it is to go use split to remote the parts we don't need
   // another way might be regex
   // let message_parse = message.Body.split("Reservation for ")[1].split(" at ");
-  let message_parse = message.Body.split("Reservation for ").join("").split(" at ");
+  let message_parse = message.split("Reservation for ").join("").split(" at ");
   if(message_parse.length != 3) return null;
   let name = message_parse[0];
   let phoneNumber = message.From;
