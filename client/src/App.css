@@ -1,0 +1,76 @@
+.App {
+  color: white;
+  display: flex;
+  flex-direction: column;
+  background-image: linear-gradient(to left, rgb(58, 0, 49), rgb(59, 1, 49));
+  min-height: 100vh;
+}
+
+.box {
+  width: 95%;
+  margin: 0 auto;
+  max-width: 400px;
+}
+
+h1 {
+  letter-spacing: .05rem;
+  margin: 15px;
+}
+p {
+  margin: 10px;
+}
+
+.App-header {
+  text-align: center;
+  background-image: linear-gradient(to left, rgb(87, 27, 63), rgb(82, 14, 57));
+  padding: 20px;
+  color: white;
+}
+
+.reservation-list.box {
+  margin-top: 10px;
+}
+
+.makeStyles-card-1 {
+  margin: auto auto 20px auto;
+}
+
+/* .reservationlist li {
+  display: flex;
+  justify-content: space-between;
+  padding: 15px 0 17px;
+  position: relative;
+}
+
+.reservationlist li::after {
+  content: "";
+  display: block;
+  position: absolute;
+  background-color: rgba(255, 255, 255, 0.16);
+  width: 100%;
+  height: 1px;
+  bottom: 0;
+}
+
+.reservationlist li:last-child::after {
+  display: none;
+}
+
+ol {
+  margin: 0;
+  padding: 13px 10px;
+}
+
+ol li {
+  margin:0;
+  padding: 0;
+  text-indent: 0;
+} */
+
+.light-gray {
+  color: rgba(255, 255, 255, 0.5);
+}
+
+.lightest-gray {
+  color: rgba(255, 255, 255, 0.33);
+}
