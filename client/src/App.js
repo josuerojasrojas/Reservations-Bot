@@ -20,7 +20,8 @@ class App extends Component {
       .then(reservations =>
         this.setState({ reservations: reservations, numReservations: reservations.length }
         ))
-      .catch((e) => console.log('error', e));
+      // nothing happens in catch...
+      .catch((e) => e);
     let $this = this;
     socket.on('reservations', function(data){
       let reservations = [ ...$this.state.reservations ];
