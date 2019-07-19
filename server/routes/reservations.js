@@ -2,13 +2,15 @@ var express = require('express');
 var router = express.Router();
 const { parseTextMessage, validateReservation } = require('./helpers/reservations');
 const sendMessage = require('./helpers/twilio_messaging');
+const { getReservations, postReservation } = require('../database/index.js');
 const { dummyJson, dummyRestaurant } = require('./helpers/reservations_dummy.js');
 
 
 
 /* GET users listing. */
 router.get('/', (req, res, next) => {
-  res.json(dummyJson);
+  getReservations(req, res);
+  // res.json(dummyJson);
 });
 
 // const reservationSuccess = 'Great! You have reserved succesfully.';
@@ -21,21 +23,31 @@ router.post('/', (req, res, next) => {
   let canReserve = validateReservation(reservation, dummyRestaurant);
   let message = '';
   if(canReserve) {
-    message = reservationSuccess(reservation.name);
+    message = reservationSuccess(reservation.name, reservation.phoneNumber);
     reservation.via = 'Twilio';
-    dummyJson.push(reservation);
+    // dummyJson.push(reservation);
     req.app.io.emit('reservations', reservation);
+    postReservation(res, res, reservation, () => {
+      sendMessage(message, reservation.phoneNumber)
+        .then((twilio_res) => res.json(twilio_res));
+    });
+
   }
-  else message = reservationFailed
+  else {
+    message = reservationFailed;
+    sendMessage(message, reservation.phoneNumber)
+    .then((twilio_res) => res.json(twilio_res));
+  }
   // res.json({"message": message});
   // should probably have a catch for errors
-  sendMessage(message, reservation.phoneNumber)
-  .then((twilio_res) => res.json(twilio_res));
+  // sendMessage(message, reservation.phoneNumber)
+  // .then((twilio_res) => res.json(twilio_res));
 });
 
 router.post('/slack', (req, res, next) => {
   let slack_message = req.body.text;
   let reservation = parseTextMessage(slack_message);
+  console.log('reservation', reservation);
   let canReserve = validateReservation(reservation, dummyRestaurant);
   let message = '';
   if(canReserve) {
@@ -43,9 +55,12 @@ router.post('/slack', (req, res, next) => {
     reservation.via = 'Slack';
     dummyJson.push(reservation);
     req.app.io.emit('reservations', reservation);
+    postReservation(res, res, reservation, () => res.json({ "text": message }));
   }
-  else message = reservationFailed;
-  res.json({ "text": message });
+  else {
+    message = reservationFailed;
+    res.json({ "text": message });
+  }
 });
 
 module.exports = router;

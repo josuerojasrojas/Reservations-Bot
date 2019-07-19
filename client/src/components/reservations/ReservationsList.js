@@ -30,6 +30,7 @@ class ReservationItem extends React.Component {
   }
 
   render() {
+    console.log('res',this.props.res);
     return (
       <li
         key={`reservation-${this.props.i}`}
@@ -37,12 +38,12 @@ class ReservationItem extends React.Component {
         ref={this.setWrapperRef}>
         <div className='top-text space-between'>
           <span className='left'><span className='light-gray'>{this.props.i+1}.</span>  {this.props.res.name}</span>
-          <span className='right light-gray'>{this.props.res.dateTime}</span>
+          <span className='right light-gray'>{this.props.res.datetime}</span>
         </div>
         <div className={`bottom ${this.state.isFocus ? '' : 'hidden'}`}>
           <div className='more-info space-between'>
             <span className='left'><span className='hidden-text'>{this.props.i+1}.</span> Date Created</span>
-            <span className='light-gray'>{this.props.res.createdAt}</span>
+            <span className='light-gray'>{this.props.res.createdat}</span>
           </div>
           <div className='more-info space-between'>
             <span className='left'><span className='hidden-text'>{this.props.i+1}.</span> Via</span>
@@ -55,8 +56,6 @@ class ReservationItem extends React.Component {
 }
 
 export default class ReservationsList extends React.Component {
-
-
   createReservationItem (reservations) {
     let reservations_list = [ ...reservations ];
     reservations_list.sort((a, b) => {
