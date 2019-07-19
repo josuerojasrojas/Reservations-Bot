@@ -30,12 +30,13 @@ function parseTextMessage(message) {
     time = time.substring(0, time.lenght - 2);
   }
   let dateTime = new Date(`${message_parse[1]} ${time}:00`);
+  let now = new Date();
   let reservation = {
     name: name,
     dateTime: `${MONTHS[dateTime.getMonth()]} ${dateTime.getDate()}, ${dateTime.getFullYear()} ${dateTime.getHours()}:${dateTime.getMinutes()  > 9 ? dateTime.getMinutes() : `0${dateTime.getMinutes()}`}`,
     duration: '1 hour',
     phoneNumber: phoneNumber,
-    createdAt: new Date().toString(),
+    createdAt: `${MONTHS[now.getMonth()]} ${now.getDate()}, ${now.getFullYear()} ${now.getHours()}:${now.getMinutes()  > 9 ? now.getMinutes() : `0${now.getMinutes()}`}`,
     rawJson: message,
     restaurantId: 1
   }

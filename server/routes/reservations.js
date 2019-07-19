@@ -22,6 +22,7 @@ router.post('/', (req, res, next) => {
   let message = '';
   if(canReserve) {
     message = reservationSuccess(reservation.name);
+    reservation.via = 'Twilio';
     dummyJson.push(reservation);
     req.app.io.emit('reservations', reservation);
   }
@@ -39,6 +40,7 @@ router.post('/slack', (req, res, next) => {
   let message = '';
   if(canReserve) {
     message = reservationSuccess(`<@${req.body.user_name}>`);
+    reservation.via = 'Slack';
     dummyJson.push(reservation);
     req.app.io.emit('reservations', reservation);
   }
