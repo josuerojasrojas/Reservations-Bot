@@ -75,10 +75,6 @@ p {
   bottom: 0;
 }
 
-/* .reservationlist li:last-child::after {
-  display: none;
-} */
-
 ol {
   margin: 0;
   padding: 13px 10px;

@@ -11,14 +11,14 @@ const MONTHS = [ "January", "February", "March", "April", "May", "June",
 //   restaurantId
 // }
 // receives message which is twilio message
-function parseTextMessage(message) {
+function parseTextMessage(message, phoneNumber='0') {
   // i think the easiest simple way to parse it is to go use split to remote the parts we don't need
   // another way might be regex
   // let message_parse = message.Body.split("Reservation for ")[1].split(" at ");
   let message_parse = message.split("Reservation for ").join("").split(" at ");
   if(message_parse.length != 3) return null;
   let name = message_parse[0];
-  let phoneNumber = message.From;
+  // let phoneNumber = phoneNumber;
   // we need to figure out the time in 24 hour format for the time
   let time = message_parse[2];
   // TODO: need to fix to include minutes
