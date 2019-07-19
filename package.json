@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start-client": "cd ./client; npm start",
-    "start-server": "cd ./server; npm start",
+    "start-server": "cd ./server; npm run start-watch",
     "start-dev": "npm-run-all -p start-server start-client",
     "start": "node ./server/bin/www",
     "test-server": "cd server; npm test",

@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "start-watch": "nodemon ./bin/www",
+    "start-watch": "PORT=3001 nodemon ./bin/www",
     "start": "node ./bin/www",
     "test": "npx jest",
     "test-watch": "npx jest --watch"
