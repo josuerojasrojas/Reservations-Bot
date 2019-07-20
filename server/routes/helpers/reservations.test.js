@@ -15,8 +15,8 @@ test("check parseTextMessage returns object with name key string", () => {
   expect(typeof parseTextMessage(dummyText.Body).name).toBe("string");
 });
 
-test("check parseTextMessage returns object with dateTime key is proper date", () => {
-  expect(typeof  Date.parse(parseTextMessage(dummyText.Body).dateTime)).toBe("number");
+test("check parseTextMessage returns object with datetime key is proper date", () => {
+  expect(typeof  Date.parse(parseTextMessage(dummyText.Body).datetime)).toBe("number");
 });
 
 

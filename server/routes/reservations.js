@@ -38,22 +38,17 @@ router.post('/', (req, res, next) => {
     sendMessage(message, reservation.phoneNumber)
     .then((twilio_res) => res.json(twilio_res));
   }
-  // res.json({"message": message});
-  // should probably have a catch for errors
-  // sendMessage(message, reservation.phoneNumber)
-  // .then((twilio_res) => res.json(twilio_res));
 });
 
 router.post('/slack', (req, res, next) => {
   let slack_message = req.body.text;
   let reservation = parseTextMessage(slack_message);
-  console.log('reservation', reservation);
+  console.log(reservation);
   let canReserve = validateReservation(reservation, dummyRestaurant);
   let message = '';
   if(canReserve) {
     message = reservationSuccess(`<@${req.body.user_name}>`);
     reservation.via = 'Slack';
-    dummyJson.push(reservation);
     req.app.io.emit('reservations', reservation);
     postReservation(res, res, reservation, () => res.json({ "text": message }));
   }
