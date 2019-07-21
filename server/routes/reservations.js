@@ -43,7 +43,6 @@ router.post('/', (req, res, next) => {
 router.post('/slack', (req, res, next) => {
   let slack_message = req.body.text;
   let reservation = parseTextMessage(slack_message);
-  console.log(reservation);
   let canReserve = validateReservation(reservation, dummyRestaurant);
   let message = '';
   if(canReserve) {
