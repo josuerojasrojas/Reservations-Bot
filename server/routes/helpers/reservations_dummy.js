@@ -25,7 +25,7 @@ const dummyText = {
 const dummyJson = [
   {
     name: "Zvjezdana Birthe",
-    dateTime: "July 20, 2019 03:24",
+    datetime: "July 20, 2019 03:24",
     phoneNumber: "+19374165537",
     createdAt: "July 13, 2019 16:54",
     rawJson: "",
@@ -34,7 +34,7 @@ const dummyJson = [
   },
   {
     name: "Miro Njeri",
-    dateTime: "July 30, 2019 18:04",
+    datetime: "July 30, 2019 18:04",
     phoneNumber: "+18155701572",
     createdAt: "July 13, 2019 16:54",
     rawJson: "",
@@ -43,7 +43,7 @@ const dummyJson = [
   },
   {
     name: "Justine Feige",
-    dateTime: "August 3, 2019 8:30",
+    datetime: "August 3, 2019 8:30",
     phoneNumber: "+12565355323",
     createdAt: "July 13, 2019 16:54",
     rawJson: "",
@@ -52,7 +52,7 @@ const dummyJson = [
   },
   {
     name: "Tao Kylee",
-    dateTime: "August 17, 2019 10:30",
+    datetime: "August 17, 2019 10:30",
     phoneNumber: "+19527072487",
     createdAt: "July 13, 2019 16:54",
     rawJson: "",
@@ -87,7 +87,7 @@ const dummySlackMessage = {
 // might change +1 day to this https://stackoverflow.com/a/3674550/6332768
 const dummyReservation = {
   name: "Zvjezdana Birthe",
-  dateTime: new Date((new Date().setHours(20) + 86400000)).toString(),
+  datetime: new Date((new Date().setHours(20) + 86400000)).toString(),
   phoneNumber: "+19374165537",
   createdAt: "July 13, 2019 16:54:00",
   rawJson: "",
@@ -119,7 +119,7 @@ const dummyTextBad = {
 
 const dummyReservationBad = {
   name: "Zvjezdana Birthe",
-  dateTime: new Date((new Date().setHours(20) - 86400000)).toString(),
+  datetime: new Date((new Date().setHours(20) - 86400000)).toString(),
   phoneNumber: "+19374165537",
   createdAt: "July 13, 2019 16:54:00",
   rawJson: "",

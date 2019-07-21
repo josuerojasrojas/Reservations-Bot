@@ -1,5 +1,12 @@
 import React from 'react';
 
+const MONTHS = [ "January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December" ];
+
+function formatDate(date) {
+  let dateObj = new Date(date);
+  return `${MONTHS[dateObj.getMonth()]} ${dateObj.getDate()}, ${dateObj.getFullYear()} ${dateObj.getHours()}:${dateObj.getMinutes()  > 9 ? dateObj.getMinutes() : `0${dateObj.getMinutes()}`}`;
+}
+
 class ReservationItem extends React.Component {
   constructor(props) {
     super(props);
@@ -30,7 +37,6 @@ class ReservationItem extends React.Component {
   }
 
   render() {
-    console.log('res',this.props.res);
     return (
       <li
         key={`reservation-${this.props.i}`}
@@ -38,12 +44,12 @@ class ReservationItem extends React.Component {
         ref={this.setWrapperRef}>
         <div className='top-text space-between'>
           <span className='left'><span className='light-gray'>{this.props.i+1}.</span>  {this.props.res.name}</span>
-          <span className='right light-gray'>{this.props.res.datetime}</span>
+          <span className='right light-gray'>{formatDate(this.props.res.datetime)}</span>
         </div>
         <div className={`bottom ${this.state.isFocus ? '' : 'hidden'}`}>
           <div className='more-info space-between'>
             <span className='left'><span className='hidden-text'>{this.props.i+1}.</span> Date Created</span>
-            <span className='light-gray'>{this.props.res.createdat}</span>
+            <span className='light-gray'>{formatDate(this.props.res.createdat)}</span>
           </div>
           <div className='more-info space-between'>
             <span className='left'><span className='hidden-text'>{this.props.i+1}.</span> Via</span>
@@ -59,10 +65,11 @@ export default class ReservationsList extends React.Component {
   createReservationItem (reservations) {
     let reservations_list = [ ...reservations ];
     reservations_list.sort((a, b) => {
-      return Date.parse(a.dateTime) - Date.parse(b.dateTime);
+      return Date.parse(a.datetime) - Date.parse(b.datetime);
     });
     return reservations_list.map((res, i) => (
       <ReservationItem
+        key={`res-item-${i}`}
         i={i}
         res={res}/>
     ));

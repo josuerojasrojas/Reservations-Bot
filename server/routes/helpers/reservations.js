@@ -1,9 +1,8 @@
-const MONTHS = [ "January", "February", "March", "April", "May", "June",
-"July", "August", "September", "October", "November", "December" ];
+const MONTHS = [ "January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December" ];
 // should return an object
 // {
 //   name,
-//   dateTime,
+//   datetime,
 //   duration,
 //   phoneNumber,
 //   createdAt,
@@ -29,16 +28,16 @@ function parseTextMessage(message, phoneNumber='0') {
   else {
     time = time.substring(0, time.lenght - 2);
   }
-  let dateTime = new Date(`${message_parse[1]} ${time}:00`);
+  let datetime = new Date(`${message_parse[1]} ${time}:00`);
   let now = new Date();
   let reservation = {
     name: name,
-    dateTime: `${MONTHS[dateTime.getMonth()]} ${dateTime.getDate()}, ${dateTime.getFullYear()} ${dateTime.getHours()}:${dateTime.getMinutes()  > 9 ? dateTime.getMinutes() : `0${dateTime.getMinutes()}`}`,
+    datetime: `${MONTHS[datetime.getMonth()]} ${datetime.getDate()}, ${datetime.getFullYear()} ${datetime.getHours()}:${datetime.getMinutes()  > 9 ? datetime.getMinutes() : `0${datetime.getMinutes()}`}`,
     duration: '1 hour',
-    phoneNumber: phoneNumber,
-    createdAt: `${MONTHS[now.getMonth()]} ${now.getDate()}, ${now.getFullYear()} ${now.getHours()}:${now.getMinutes()  > 9 ? now.getMinutes() : `0${now.getMinutes()}`}`,
-    rawJson: message,
-    restaurantId: 1
+    phonenumber: phoneNumber,
+    createdat: `${MONTHS[now.getMonth()]} ${now.getDate()}, ${now.getFullYear()} ${now.getHours()}:${now.getMinutes()  > 9 ? now.getMinutes() : `0${now.getMinutes()}`}`,
+    rawjson: message,
+    restaurantid: 1
   }
   return reservation;
 }
@@ -47,7 +46,7 @@ function parseTextMessage(message, phoneNumber='0') {
 // TODO: there is an issue if closing time is midnight then it should set the date to the next day, right now it will return false because it is set to todays date. might not be a big deal though
 function validateReservation(reservationObj, restaurantObj) {
   if(!reservationObj || !restaurantObj) return false;
-  let reservationDateObj = new Date(reservationObj.dateTime);
+  let reservationDateObj = new Date(reservationObj.datetime);
   let reservationDate = new Date().setHours(reservationDateObj.getHours(), reservationDateObj.getMinutes());
   // for open and close time we assume only given time and not date
   let openTimeHours = restaurantObj.opensAt.split(':');
@@ -62,7 +61,7 @@ function validateReservation(reservationObj, restaurantObj) {
   // - below one hour before closing
   // - date is after now()
   return (
-    Date.parse(new Date()) < Date.parse(reservationObj.dateTime)
+    Date.parse(new Date()) < Date.parse(reservationObj.datetime)
     && openTime <= reservationDate
     && (closingTime - 3600000) >= (reservationDate)
   );
