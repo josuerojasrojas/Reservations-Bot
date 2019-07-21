@@ -1,4 +1,5 @@
 import React from 'react';
+import TimeLeft from '../TimeLeft.js';
 
 const MONTHS = [ "January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December" ];
 
@@ -54,6 +55,10 @@ class ReservationItem extends React.Component {
           <div className='more-info space-between'>
             <span className='left'><span className='hidden-text'>{this.props.i+1}.</span> Via</span>
             <span className='light-gray'>{this.props.res.via}</span>
+          </div>
+          <div className='more-info space-between'>
+            <span className='left'><span className='hidden-text'>{this.props.i+1}.</span> TimeLeft</span>
+            <span className='light-gray'>{!this.state.isFocus ? '0' : (<TimeLeft date={this.props.res.datetime}/>)}</span>
           </div>
         </div>
       </li>

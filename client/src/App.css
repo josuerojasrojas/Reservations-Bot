@@ -41,7 +41,7 @@ p {
 
 .reservationlist .bottom {
   transition: 300ms max-height;
-  max-height: 84px;
+  max-height: 126px;
   overflow: hidden;
   white-space: nowrap;
 }

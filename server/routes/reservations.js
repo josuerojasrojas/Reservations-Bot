@@ -19,23 +19,23 @@ const reservationFailed = 'Reservation failed check the time and try again. Rest
 
 router.post('/', (req, res, next) => {
   let twilio_message = req.body.Body;
-  let reservation = parseTextMessage(twilio_message);
+  let phonenumber = req.body.From
+  let reservation = parseTextMessage(twilio_message, phonenumber);
   let canReserve = validateReservation(reservation, dummyRestaurant);
   let message = '';
   if(canReserve) {
-    message = reservationSuccess(reservation.name, reservation.phoneNumber);
+    message = reservationSuccess(reservation.name);
     reservation.via = 'Twilio';
-    // dummyJson.push(reservation);
     req.app.io.emit('reservations', reservation);
     postReservation(res, res, reservation, () => {
-      sendMessage(message, reservation.phoneNumber)
+      sendMessage(message, phonenumber)
         .then((twilio_res) => res.json(twilio_res));
     });
 
   }
   else {
     message = reservationFailed;
-    sendMessage(message, reservation.phoneNumber)
+    sendMessage(message, phonenumber)
     .then((twilio_res) => res.json(twilio_res));
   }
 });
