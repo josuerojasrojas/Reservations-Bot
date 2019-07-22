@@ -1,7 +1,7 @@
 var express = require('express');
 var router = express.Router();
 const { parseTextMessage, validateReservation } = require('./helpers/reservations');
-const sendMessage = require('./helpers/twilio_messaging');
+const MessagingResponse = require('twilio').twiml.MessagingResponse;
 const { getReservations, postReservation } = require('../database/index.js');
 const { dummyJson, dummyRestaurant } = require('./helpers/reservations_dummy.js');
 
@@ -20,23 +20,22 @@ const reservationFailed = 'Reservation failed check the time and try again. Rest
 router.post('/', (req, res, next) => {
   let twilio_message = req.body.Body;
   let phonenumber = req.body.From
+  const twiml = new MessagingResponse();
   let reservation = parseTextMessage(twilio_message, phonenumber);
   let canReserve = validateReservation(reservation, dummyRestaurant);
-  let message = '';
   if(canReserve) {
-    message = reservationSuccess(reservation.name);
     reservation.via = 'Twilio';
     req.app.io.emit('reservations', reservation);
     postReservation(res, res, reservation, () => {
-      sendMessage(message, phonenumber)
-        .then((twilio_res) => res.json(twilio_res));
+      twiml.message(reservationSuccess(reservation.name));
+      res.writeHead(200, {'Content-Type': 'text/xml'});
+      res.end(twiml.toString());
     });
-
   }
   else {
-    message = reservationFailed;
-    sendMessage(message, phonenumber)
-    .then((twilio_res) => res.json(twilio_res));
+    twiml.message(reservationFailed);
+    res.writeHead(200, {'Content-Type': 'text/xml'});
+    res.end(twiml.toString());
   }
 });
 
