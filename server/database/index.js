@@ -21,7 +21,6 @@ function postReservation(req, res, reservation, callback) {
   let via = reservation.via;
   let restaurantId = reservation.restaurantid;
   pool.query('INSERT INTO reservations (name, datetime, phonenumber, createdat, via, restaurantid) VALUES ($1, $2, $3, $4, $5, $6)', [name, datetime, phoneNumber, createdAt, via, restaurantId], (err, results) => {
-    console.log(err);
     callback(err, results);
   })
 }

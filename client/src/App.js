@@ -4,7 +4,7 @@ import './App.css';
 import io from 'socket.io-client';
 let socket = io('/')
 
-import ReservationsList from './components/reservations/ReservationsList';
+import ReservationsList from './components/ReservationsList';
 
 class App extends Component {
   constructor(props) {
