@@ -1,12 +1,6 @@
 import React from 'react';
-import TimeLeft from '../TimeLeft.js';
-
-const MONTHS = [ "January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December" ];
-
-function formatDate(date) {
-  let dateObj = new Date(date);
-  return `${MONTHS[dateObj.getMonth()]} ${dateObj.getDate()}, ${dateObj.getFullYear()} ${dateObj.getHours()}:${dateObj.getMinutes()  > 9 ? dateObj.getMinutes() : `0${dateObj.getMinutes()}`}`;
-}
+import TimeLeft from './TimeLeft.js';
+import { formatDate } from '../helpers/formattext';
 
 class ReservationItem extends React.Component {
   constructor(props) {

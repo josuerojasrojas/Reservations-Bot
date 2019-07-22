@@ -1,6 +1,7 @@
 import React from 'react';
+import { formatTime } from '../helpers/formattext';
 
-// a component that display time left from given date and now
+// a component that display time left from given date
 
 export default class TimeLeft extends React.Component {
   constructor(props) {
@@ -18,17 +19,6 @@ export default class TimeLeft extends React.Component {
     this.setState({ time: time });
   }
 
-  formatTime(milli) {
-    let days = Math.floor(milli / 86400000);
-    milli -= days * 86400000;
-    let hours = Math.floor(milli / 3600000);
-    milli -= hours * 3600000;
-    let minutes = Math.floor(milli / 60000);
-    milli -= minutes * 60000;
-    let seconds = Math.floor(milli / 1000);
-    return `${days} Days ${hours > 9 ? hours : `0${hours}`}:${minutes > 9 ? minutes : `0${minutes}`}:${seconds > 9 ? seconds : `0${seconds}`}`;
-  }
-
   componentWillMount() {
     // run first time
     this.timeLeft();
@@ -42,7 +32,7 @@ export default class TimeLeft extends React.Component {
 
   render() {
     return(
-      <span className={this.props.className  || ''}>{this.formatTime(this.state.time)}</span>
+      <span className={this.props.className  || ''}>{formatTime(this.state.time)}</span>
     )
   }
 }
